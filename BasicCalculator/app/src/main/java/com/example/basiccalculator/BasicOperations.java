@@ -15,7 +15,20 @@ public class BasicOperations {
         return number1 - number2;
     }
 
-    public float division(int number1, int number2) {
+    public double division(int number1, int number2) {
         return number1 / number2;
     }
+
+    public double squareOperation(int number){
+        return number * number;
+    }
+
+    public double calculatePercentage(int obtained, int total){
+        if(total == 0){
+            return 0.0; //no valid number
+        } else {
+            return (obtained * total) * 100;
+        }
+    }
 }
+
