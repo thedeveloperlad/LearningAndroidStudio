@@ -1,5 +1,7 @@
 package com.example.basiccalculator;
 
+import android.util.Log;
+
 public class BasicOperations {
 
     public BasicOperations (){
@@ -16,7 +18,7 @@ public class BasicOperations {
     }
 
     public double division(int number1, int number2) {
-        return number1 / number2;
+        return (double) number1 / number2;
     }
 
     public double squareOperation(int number){
@@ -27,7 +29,9 @@ public class BasicOperations {
         if(total == 0){
             return 0.0; //no valid number
         } else {
-            return (obtained * total) * 100;
+            double result = ((double) obtained / total) * 100;
+            Log.d("calculatePercentage(): ", String.valueOf(result));
+            return ((double) obtained / total) * 100;
         }
     }
 }
