@@ -1,6 +1,8 @@
 package com.project.mlbdownloadervideos;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -8,6 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,5 +43,56 @@ public class MainActivity extends AppCompatActivity {
 
         // Optional: Customize title or navigation icon
         getSupportActionBar().setTitle("MLB Downloader");
+    }
+
+    protected class GetEventsTask extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute(){
+            super.onPreExecute();
+            Log.d("GetEventsTask", "TEST onPreExecute");
+            // start loading icon
+        }
+        @Override
+        protected String doInBackground(String... args) {
+            Log.d("GetEventsTask", "TEST doInBackground");
+            String urlDATA = args[0];
+            Log.d("GetEventsTask= data=", urlDATA);
+            String dataResult = "";
+            try{
+                URL url = new URL(urlDATA);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                // Set timeouts
+                httpURLConnection.setConnectTimeout(5000); // 5 seconds
+                httpURLConnection.setReadTimeout(5000);    // 5 seconds
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                String data="";
+                while((line = bufferedReader.readLine()) != null){
+                    data = data + line;
+                }
+                dataResult = data;
+                Log.d("GetEventsTask= data=", data);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } /*catch (JSONException e) {
+                throw new RuntimeException(e);
+            }*/
+            return dataResult;
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid){
+            super.onPostExecute(aVoid);
+            //processValue(aVoid);
+            Log.d("GetEventsTask", "TEST onPostExecute");
+            // Update UI
+        }
     }
 }
