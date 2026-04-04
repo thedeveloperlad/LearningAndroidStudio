@@ -3,6 +3,7 @@ package com.project.mlbdownloadervideos;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Optional: Customize title or navigation icon
         getSupportActionBar().setTitle("MLB Downloader");
+    }
+
+    public void DownloaderButton(View view){
+        TextInputLayout URLText = (TextInputLayout)findViewById(R.id.VideoLinkText);
+
+        String pathValue = String.valueOf(URLText.getEditText().getText());
+        Log.d("fileReader()= ","pathValue= " + pathValue);
+
     }
 
     protected class GetEventsTask extends AsyncTask<String, Void, String> {

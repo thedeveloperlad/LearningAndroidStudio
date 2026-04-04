@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
     <androidx.appcompat.widget.Toolbar
     android:id="@+id/my_toolbar"
     android:layout_width="match_parent"
@@ -15,5 +20,45 @@
     android:elevation="4dp"
     app:titleTextColor="@android:color/white"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+    <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/VideoLinkText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:endIconMode="clear_text"
+    android:layout_marginTop="12dp"
+    app:hintTextAppearance="@style/TextLabel"
+    android:minHeight="30dp"
+    android:lines="5"
+        android:gravity="top|start"
+    android:hint="Paste MLB link">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="244dp"
+            android:layout_height="wrap_content" />
+
+</com.google.android.material.textfield.TextInputLayout>
+   </TableRow>
+
+   <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+<Button
+    style="@style/Widget.Material3.Button.ElevatedButton"
+    android:id="@+id/DownloaderButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Download"
+    android:onClick="DownloaderButton" />
+
+    </TableRow>
+     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
