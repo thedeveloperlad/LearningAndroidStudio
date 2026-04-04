@@ -26,23 +26,24 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-    <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/VideoLinkText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:endIconMode="clear_text"
-    android:layout_marginTop="12dp"
-    app:hintTextAppearance="@style/TextLabel"
-    android:minHeight="30dp"
-    android:lines="5"
-        android:gravity="top|start"
-    android:hint="Paste MLB link">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/VideoLinkText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_margin="32dp"
+            android:lines="5"
+            android:layout_marginTop="12dp"
+            android:minHeight="30dp"
+            android:hint="Enter MLB video link">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="244dp"
-            android:layout_height="wrap_content" />
+        <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="219dp"
+                android:layout_height="wrap_content" />
+        
+        </com.google.android.material.textfield.TextInputLayout>
 
-</com.google.android.material.textfield.TextInputLayout>
    </TableRow>
 
    <TableRow
@@ -57,6 +58,33 @@
     android:layout_height="wrap_content"
     android:text="Download"
     android:onClick="DownloaderButton" />
+
+    </TableRow>
+
+     <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+    
+
+     <TextView
+    android:id="@+id/myResultText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Original Text" />
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+    <TextView
+    android:id="@+id/myVideoLinkText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Original Text" />
 
     </TableRow>
      </TableLayout>

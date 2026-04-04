@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.jetbrains.annotations.TestOnly;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +26,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
+
+    FileParser fileParser = new FileParser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +56,24 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("MLB Downloader");
     }
 
-    public void DownloaderButton(View view){
+    public void DownloaderButton(View view) throws ExecutionException, InterruptedException, JSONException {
         TextInputLayout URLText = (TextInputLayout)findViewById(R.id.VideoLinkText);
-
         String pathValue = String.valueOf(URLText.getEditText().getText());
-        Log.d("fileReader()= ","pathValue= " + pathValue);
 
+        if(pathValue.isEmpty()){
+            //Display warning or error message.
+        } else {
+            Log.d("fileReader()= ","pathValue= " + pathValue);
+            String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
+            JSONObject result = fileParser.mlbParserFile(mlbHtmlLink);
+            Log.d("fileReader()= ","mlb= " + result);
+
+            //@TestOnly
+            TextView myResultTextView = findViewById(R.id.myResultText);
+            TextView myVideoLinkTextView = findViewById(R.id.myVideoLinkText);
+            myResultTextView.setText(result.get("name").toString());
+            myVideoLinkTextView.setText(result.get("link").toString());
+        }
     }
 
     protected class GetEventsTask extends AsyncTask<String, Void, String> {
