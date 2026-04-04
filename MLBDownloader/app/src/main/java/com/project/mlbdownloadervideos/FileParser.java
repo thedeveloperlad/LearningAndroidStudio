@@ -10,6 +10,10 @@ public class FileParser {
     String VideoTitle;
     String MLBLink;
     FileParser(){}
+    FileParser(String videoTitle, String mlbLink){
+        this.VideoTitle = videoTitle;
+        this.MLBLink = mlbLink;
+    }
 
     public JSONObject mlbParserFile(String htmlString){
         JSONObject jsonObject = new JSONObject();
@@ -64,4 +68,8 @@ public class FileParser {
         }
         return null;
     }
+
+    //setters
+
+    //getters
 }
