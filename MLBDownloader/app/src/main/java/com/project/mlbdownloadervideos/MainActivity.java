@@ -1,11 +1,16 @@
 package com.project.mlbdownloadervideos;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toolbar;
+import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +36,8 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     FileParser fileParser = new FileParser();
-
+    VideoView videoView;
+    String videoURLLink;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,31 +69,32 @@ public class MainActivity extends AppCompatActivity {
         if(pathValue.isEmpty()){
             //Display warning or error message.
         } else {
-            Log.d("fileReader()= ","pathValue= " + pathValue);
             String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
-            JSONObject result = fileParser.mlbParserFile(mlbHtmlLink);
-            Log.d("fileReader()= ","mlb= " + result);
+            JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
 
-            //@TestOnly
-            TextView myResultTextView = findViewById(R.id.myResultText);
-            TextView myVideoLinkTextView = findViewById(R.id.myVideoLinkText);
-            myResultTextView.setText(result.get("name").toString());
-            myVideoLinkTextView.setText(result.get("link").toString());
+            Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+            intent.putExtra("name", resultJSON.get("name").toString());
+            intent.putExtra("link", resultJSON.get("link").toString());
+            intent.putExtra("image", resultJSON.get("image").toString());
+            startActivity(intent);
         }
     }
 
     protected class GetEventsTask extends AsyncTask<String, Void, String> {
 
+        private final ProgressDialog dialog = new ProgressDialog(
+                MainActivity.this);
+
         protected void onPreExecute(){
-            super.onPreExecute();
-            Log.d("GetEventsTask", "TEST onPreExecute");
+            //super.onPreExecute();
             // start loading icon
+            this.dialog.setMessage("Loading, Please Wait..");
+            this.dialog.setCancelable(false);
+            this.dialog.show();
         }
         @Override
         protected String doInBackground(String... args) {
-            Log.d("GetEventsTask", "TEST doInBackground");
             String urlDATA = args[0];
-            Log.d("GetEventsTask= data=", urlDATA);
             String dataResult = "";
             try{
                 URL url = new URL(urlDATA);
@@ -107,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     data = data + line;
                 }
                 dataResult = data;
-                Log.d("GetEventsTask= data=", data);
+                /* Log.d("GetEventsTask= data=", data); */
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -120,8 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String aVoid){
-            super.onPostExecute(aVoid);
+            //super.onPostExecute(aVoid);
             //processValue(aVoid);
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
             Log.d("GetEventsTask", "TEST onPostExecute");
             // Update UI
         }

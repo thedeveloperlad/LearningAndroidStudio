@@ -1,5 +1,13 @@
 package com.project.mlbdownloadervideos;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Environment;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,11 +37,13 @@ public class FileParser {
             // 2. Get the content of a <meta property="..."> tag (e.g., Open Graph)
             String ogTitle = getMetaContentByProperty(doc, "og:title");
             String ogVideo = getMetaContentByProperty(doc, "og:video");
+            String ogImage = getMetaContentByProperty(doc, "og:image");
 
             jsonObject.put("name", ogTitle);
             jsonObject.put("link", ogVideo);
+            jsonObject.put("image", ogImage);
 
-        } catch (org.json.JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return jsonObject;
@@ -67,6 +77,24 @@ public class FileParser {
             return metaTag.attr("content");
         }
         return null;
+    }
+
+    void startDownload(String url) {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setTitle("Downloading File");
+        request.setDescription("Please wait...");
+
+        // Save file to the public Downloads folder
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "my_downloaded_file.zip");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        DownloadManager manager;
+        //manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        Context context = null;
+        manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        if (manager != null) {
+            manager.enqueue(request); // Starts the download
+        }
     }
 
     //setters
