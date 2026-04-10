@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+    <androidx.appcompat.widget.Toolbar
+    android:id="@+id/my_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#010612ff"
+        android:gravity="center"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/nameTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Text" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#010612ff"
+        android:gravity="center"
+        android:padding="10dp">
+
+         <TextView
+            android:id="@+id/linkTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Link text" />
+
+        <TextView
+            android:id="@+id/imageLinkId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Image text" />
+
+    </TableRow>    
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp">
+
+    <Button
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:id="@+id/DownloadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download Video"
+            android:onClick="DownloadVideoButton" />
+
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

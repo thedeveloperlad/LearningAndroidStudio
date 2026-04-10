@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-<Button
+    <Button
     style="@style/Widget.Material3.Button.ElevatedButton"
     android:id="@+id/DownloaderButton"
     android:layout_width="wrap_content"
@@ -61,17 +61,10 @@
 
     </TableRow>
 
-     <TableRow
+    <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-    
-
-     <TextView
-    android:id="@+id/myResultText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Original Text" />
 
     </TableRow>
 
@@ -80,13 +73,40 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-    <TextView
-    android:id="@+id/myVideoLinkText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Original Text" />
+        <!-- <TextView
+            android:id="@+id/myVideoLinkText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Original Text" />
 
-    </TableRow>
+        </TableRow> -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- <VideoView
+                android:id="@+id/videoId"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" /> -->
+            </FrameLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+        <!-- <Button
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:id="@+id/DownloadSourceButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download Source"
+            android:onClick="DownloadSourceButton" /> -->
+
+        </TableRow>
+
+        
      </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
