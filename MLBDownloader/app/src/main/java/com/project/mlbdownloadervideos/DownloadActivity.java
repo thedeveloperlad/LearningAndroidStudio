@@ -1,8 +1,11 @@
 package com.project.mlbdownloadervideos;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,14 +51,14 @@ public class DownloadActivity extends AppCompatActivity {
         nameView.setText(name);
         linkView.setText(link);
         imageView.setText(image);
+
+        //Open video player for example
+        openVideo(link);
     }
 
-    void openVideo(){
-        /*String videoLink = result.get("link").toString();
-            videoURLLink = videoLink;
-            //myVideoLinkTextView.setText(result.get("link").toString());
-
-            videoView = findViewById(R.id.videoId);
+    void openVideo(String videoLink){
+            Uri uri = Uri.parse(videoLink);
+            VideoView videoView = findViewById(R.id.videoId);
             //Create object for media Controller
             MediaController mediaController = new MediaController(this);
             //set media player
@@ -63,6 +66,22 @@ public class DownloadActivity extends AppCompatActivity {
             //Set media Controller for media View
             videoView.setMediaController(mediaController);
             //set Video URL
-            videoView.setVideoURI(Uri.parse(pathValue));*/
+            videoView.setVideoURI(uri);
+            videoView.start();
+            videoView.setZOrderOnTop(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        VideoView videoView = findViewById(R.id.videoId);
+        videoView.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        VideoView videoView = findViewById(R.id.videoId);
+        videoView.start();
     }
 }
