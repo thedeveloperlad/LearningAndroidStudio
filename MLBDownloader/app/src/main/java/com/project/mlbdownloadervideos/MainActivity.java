@@ -36,8 +36,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     FileParser fileParser = new FileParser();
-    VideoView videoView;
-    String videoURLLink;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
