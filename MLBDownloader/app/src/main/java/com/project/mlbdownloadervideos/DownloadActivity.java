@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DownloadActivity extends AppCompatActivity {
@@ -62,22 +63,33 @@ public class DownloadActivity extends AppCompatActivity {
 
     public void DownloadButton(View view){
         TextView nameView = (TextView) findViewById(R.id.nameTextId);
-        //Log.d("DownloadActivity.DownloadVideoButton()", "entro al metodo");
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
         manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        //Log.d("DownloadActivity.DownloadVideoButton().linkView.toString()=", linkView.getText().toString());
         Uri uri = Uri.parse(linkView.getText().toString());
-        //Log.d("DownloadActivity.DownloadVideoButton()", "uri");
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        //Log.d("DownloadActivity.DownloadVideoButton()", "request");
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Download");
+        request.setDescription("Download file...");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        //Log.d("DownloadActivity.DownloadVideoButton()", "request.setNotificationVisibility");
-        nameView.getText().toString();
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, nameView.getText().toString()+"video.mp4");
+        //nameView.getText().toString()
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video.mp4");
+        // request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, nameView.getText().toString()+"video.mp4");
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        long reference = manager.enqueue(request);
+        manager.enqueue(request);
         // long reference = manager.enqueue(request);
     }
+
+    //pending to check this method.
+    /*private static DownloadManager Request getRequest(Uri uri) {
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Download");
+        request.setDescription("Download file...");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        //nameView.getText().toString()
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video.mp4");
+        return request;
+    }*/
 
     public void BackHomeButton(View view){
         Intent intent = new Intent(DownloadActivity.this, MainActivity.class);
