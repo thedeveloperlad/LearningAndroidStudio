@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 import android.widget.VideoView;
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(pathValue.isEmpty()){
             //Display warning or error message.
+            Toast.makeText(MainActivity.this, "Not valid", Toast.LENGTH_SHORT).show();
         } else {
             String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
             JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);

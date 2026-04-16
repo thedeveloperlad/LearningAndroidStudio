@@ -43,7 +43,8 @@
             android:id="@+id/linkTextId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Video Link text" />
+            android:visibility="invisible"
+            android:text="" />
     </TableRow> 
     <TableRow
         android:layout_width="match_parent"
@@ -65,11 +66,11 @@
         android:gravity="center"
         android:padding="10dp">
         
-        <TextView
+        <!-- <TextView
             android:id="@+id/imageLinkId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Video Image text" />
+            android:text="Video Image text" /> -->
 
     </TableRow>        
 

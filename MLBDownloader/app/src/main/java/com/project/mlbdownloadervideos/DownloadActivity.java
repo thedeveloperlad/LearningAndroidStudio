@@ -51,11 +51,12 @@ public class DownloadActivity extends AppCompatActivity {
 
         TextView nameView = (TextView) findViewById(R.id.nameTextId);
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
-        TextView imageView = (TextView) findViewById(R.id.imageLinkId);
+        /*TextView linkView = (TextView) findViewById(R.id.linkTextId);
+        TextView imageView = (TextView) findViewById(R.id.imageLinkId);*/
 
         nameView.setText(name);
         linkView.setText(link);
-        imageView.setText(image);
+        /*imageView.setText(image);*/
 
         //Open video player for example
         openVideo(link);
