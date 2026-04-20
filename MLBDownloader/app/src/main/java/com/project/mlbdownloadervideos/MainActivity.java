@@ -70,14 +70,19 @@ public class MainActivity extends AppCompatActivity {
             //Display warning or error message.
             Toast.makeText(MainActivity.this, "Not valid", Toast.LENGTH_SHORT).show();
         } else {
-            String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
-            JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
+            if(pathValue.contains("mlb") || pathValue.contains("milb")){
+                String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
+                JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
 
-            Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
-            intent.putExtra("name", resultJSON.get("name").toString());
-            intent.putExtra("link", resultJSON.get("link").toString());
-            intent.putExtra("image", resultJSON.get("image").toString());
-            startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+                intent.putExtra("name", resultJSON.get("name").toString());
+                intent.putExtra("link", resultJSON.get("link").toString());
+                intent.putExtra("image", resultJSON.get("image").toString());
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(MainActivity.this, "Invalid link, only supports MLB & MiLB...", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
