@@ -23,16 +23,34 @@
         android:gravity="center"
         android:padding="10dp">
 
+        <VideoView
+                android:id="@+id/videoId"
+                android:layout_width="300dp"
+        android:layout_height="200dp" />
+
+    </TableRow> 
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:padding="10dp">
+
 
         <TextView
             android:id="@+id/nameTextId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:lines="2"
+            android:padding="10dp"
             android:text="Video Text" />
 
     </TableRow>
 
-    <TableRow
+    <!-- <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
@@ -45,34 +63,7 @@
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:text="" />
-    </TableRow> 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:padding="10dp">
-        <VideoView
-                android:id="@+id/videoId"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
-
-    </TableRow> 
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:padding="10dp">
-        
-        <!-- <TextView
-            android:id="@+id/imageLinkId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Video Image text" /> -->
-
-    </TableRow>        
+    </TableRow> -->        
 
     <TableRow
         android:layout_width="match_parent"
@@ -105,6 +96,22 @@
             android:text="Back Home"
             android:onClick="BackHomeButton" />
     </TableRow> 
+     <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/linkTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="" />
+
+    </TableRow>
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
