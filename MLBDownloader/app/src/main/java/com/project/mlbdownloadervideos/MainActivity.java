@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         setToolbar();
-        checkConnection();
+        if(!checkConnection()){
+            showNetworkInfo(checkConnection());
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -78,14 +80,19 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
             Toast.makeText(MainActivity.this, "Not valid", Toast.LENGTH_SHORT).show();
         } else {
             if(pathValue.contains("mlb") || pathValue.contains("milb")){
-                String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
-                JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
 
-                Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
-                intent.putExtra("name", resultJSON.get("name").toString());
-                intent.putExtra("link", resultJSON.get("link").toString());
-                intent.putExtra("image", resultJSON.get("image").toString());
-                startActivity(intent);
+                if(!checkConnection()){
+                    showNetworkInfo(checkConnection());
+                } else {
+                    String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
+                    JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
+
+                    Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+                    intent.putExtra("name", resultJSON.get("name").toString());
+                    intent.putExtra("link", resultJSON.get("link").toString());
+                    intent.putExtra("image", resultJSON.get("image").toString());
+                    startActivity(intent);
+                }
             }
             else {
                 Toast.makeText(MainActivity.this, "Invalid link, only supports MLB & MiLB...", Toast.LENGTH_SHORT).show();
@@ -95,33 +102,27 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
 
     }
 
-    private void checkConnection() {
+    private boolean checkConnection() {
 
         // initialize intent filter
         IntentFilter intentFilter = new IntentFilter();
-
         // add action
         intentFilter.addAction("android.new.conn.CONNECTIVITY_CHANGE");
-
         // register receiver
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             registerReceiver(new ConnectionReceiver(), intentFilter, Context.RECEIVER_NOT_EXPORTED);
         }
-
         // Initialize listener
         ConnectionReceiver.Listener = this;
-
         // Initialize connectivity manager
         ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
         // Initialize network info
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
         // get connection status
         boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
 
+        return isConnected;
         // display snack bar
-        showNetworkInfo(isConnected);
     }
 
     private void showNetworkInfo(boolean isConnected) {
@@ -147,7 +148,21 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
 
     @Override
     public void onNetworkChange(boolean isConnected) {
+        showNetworkInfo(isConnected);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // call method
+        checkConnection();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // call method
+        checkConnection();
     }
 
     protected class GetEventsTask extends AsyncTask<String, Void, String> {
