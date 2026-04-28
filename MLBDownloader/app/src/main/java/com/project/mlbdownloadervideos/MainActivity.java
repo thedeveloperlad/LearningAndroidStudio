@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
         boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
 
         return isConnected;
-        // display snack bar
     }
 
     private void showNetworkInfo(boolean isConnected) {
