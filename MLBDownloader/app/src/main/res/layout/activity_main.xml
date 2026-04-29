@@ -56,7 +56,10 @@
                 android:layout_marginTop="12dp"
                 android:hint="Enter MLB/MiLB video link"
                 android:lines="5"
-                android:minHeight="30dp">
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:minHeight="30dp"
+                app:endIconMode="clear_text">
 
                 <!--this is the actual edit text which takes the input-->
                 <com.google.android.material.textfield.TextInputEditText

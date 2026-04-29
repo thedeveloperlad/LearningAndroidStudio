@@ -153,14 +153,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
     @Override
     public void onResume() {
         super.onResume();
-        // call method
         checkConnection();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        // call method
         checkConnection();
     }
 

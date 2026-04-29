@@ -53,6 +53,7 @@ public class DownloadActivity extends AppCompatActivity {
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
         /*TextView linkView = (TextView) findViewById(R.id.linkTextId);
         TextView imageView = (TextView) findViewById(R.id.imageLinkId);*/
+        nameView.setTextIsSelectable(true);
 
         nameView.setText(name);
         linkView.setText(link);
