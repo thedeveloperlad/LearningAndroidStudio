@@ -38,10 +38,12 @@ public class FileParser {
             String ogTitle = getMetaContentByProperty(doc, "og:title");
             String ogVideo = getMetaContentByProperty(doc, "og:video");
             String ogImage = getMetaContentByProperty(doc, "og:image");
+            String ogDescription = getMetaContentByProperty(doc, "og:description");
 
             jsonObject.put("name", ogTitle);
             jsonObject.put("link", ogVideo);
             jsonObject.put("image", ogImage);
+            jsonObject.put("description", ogDescription);
 
         } catch (JSONException e) {
             e.printStackTrace();

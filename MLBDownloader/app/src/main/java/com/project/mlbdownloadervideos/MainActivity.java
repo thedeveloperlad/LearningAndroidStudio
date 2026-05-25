@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
                     intent.putExtra("name", resultJSON.get("name").toString());
                     intent.putExtra("link", resultJSON.get("link").toString());
                     intent.putExtra("image", resultJSON.get("image").toString());
+                    intent.putExtra("description", resultJSON.get("description").toString());
                     startActivity(intent);
                 }
             }

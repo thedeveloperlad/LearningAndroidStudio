@@ -29,27 +29,81 @@
                 android:layout_width="300dp"
         android:layout_height="200dp" />
 
-    </TableRow> 
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:padding="10dp">
-
-
-        <TextView
-            android:id="@+id/nameTextId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:lines="2"
-            android:padding="10dp"
-            android:text="Video Text" />
-
     </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/nameTextId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:lines="2"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:text="Video Text" />
+
+            <!--  <ImageView
+                 android:id="@+id/copyIcon"
+                 android:layout_width="wrap_content"
+                 android:layout_height="30dp"
+                 android:contentDescription="Copy text"
+                 android:src="@drawable/ic_content_copy"
+                 android:onClick="onCopyIcon" /> -->
+
+         </TableRow>
+
+         <TableRow
+             android:layout_width="match_parent"
+             android:layout_height="57dp"
+             android:background="@drawable/border"
+             android:gravity="center"
+             android:padding="10dp">
+
+
+             <TextView
+                 android:id="@+id/descriptionTextId"
+                 android:layout_width="355dp"
+                 android:layout_height="wrap_content"
+                 android:ellipsize="marquee"
+                 android:lines="2"
+                 android:padding="10dp"
+                 android:singleLine="true"
+                 android:text="Description Text" />
+
+            <!-- <ImageView
+                 android:id="@+id/copyDescriptionIcon"
+                 android:layout_width="wrap_content"
+                 android:layout_height="30dp"
+                 android:contentDescription="Copy text"
+                 android:src="@drawable/ic_content_copy"
+                 android:onClick="onCopyIcon" /> -->
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <Button
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:id="@+id/copyTextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copy Description"
+                android:src="@drawable/ic_content_copy"
+                android:onClick="onCopyIcon" />
+
+        </TableRow>
 
     <!-- <TableRow
         android:layout_width="match_parent"

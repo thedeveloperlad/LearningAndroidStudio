@@ -7,9 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -48,19 +52,44 @@ public class DownloadActivity extends AppCompatActivity {
         String name = getIntent.getStringExtra("name");
         String link = getIntent.getStringExtra("link");
         String image = getIntent.getStringExtra("image");
+        String description = getIntent.getStringExtra("description");
 
         TextView nameView = (TextView) findViewById(R.id.nameTextId);
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
+        TextView descriptionView = (TextView) findViewById(R.id.descriptionTextId);
         /*TextView linkView = (TextView) findViewById(R.id.linkTextId);
         TextView imageView = (TextView) findViewById(R.id.imageLinkId);*/
         nameView.setTextIsSelectable(true);
 
         nameView.setText(name);
         linkView.setText(link);
+        descriptionView.setText(description);
         /*imageView.setText(image);*/
 
         //Open video player for example
-        openVideo(link);
+        if(link.equals(null))
+        {
+            Toast.makeText(DownloadActivity.this, "Invalid link ,link is broken or is processing...", Toast.LENGTH_SHORT).show();
+        } else {
+            openVideo(link);
+        }
+    }
+
+    public void onCopyIcon(View view) {
+        //TextView nameTextView = findViewById(R.id.nameTextId);
+        TextView descriptionTextView = findViewById(R.id.descriptionTextId);
+        // Get the text from TextView
+        // String nameTextToCopy = nameTextView.getText().toString();
+        String descriptionTextToCopy = descriptionTextView.getText().toString();
+        // Access the Clipboard service
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", descriptionTextToCopy);
+
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(clip);
+            // Notify user
+            Toast.makeText(DownloadActivity.this, "Text Copied!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void DownloadButton(View view){
