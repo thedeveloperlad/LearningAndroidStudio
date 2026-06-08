@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -67,7 +68,8 @@ public class DownloadActivity extends AppCompatActivity {
         /*imageView.setText(image);*/
 
         //Open video player for example
-        if(link.equals(null))
+        Log.d("DownloadActivity.printResultScreen= link = ", link.toString());
+        if(link.toString() == null)
         {
             Toast.makeText(DownloadActivity.this, "Invalid link ,link is broken or is processing...", Toast.LENGTH_SHORT).show();
         } else {

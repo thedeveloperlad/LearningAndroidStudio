@@ -87,12 +87,16 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
                     String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
                     JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
 
-                    Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
-                    intent.putExtra("name", resultJSON.get("name").toString());
-                    intent.putExtra("link", resultJSON.get("link").toString());
-                    intent.putExtra("image", resultJSON.get("image").toString());
-                    intent.putExtra("description", resultJSON.get("description").toString());
-                    startActivity(intent);
+                    if(resultJSON.length() == 0){
+                        Toast.makeText(MainActivity.this, "Invalid link, MLB returns null data...", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+                        intent.putExtra("name", resultJSON.get("name").toString());
+                        intent.putExtra("link", resultJSON.get("link").toString());
+                        intent.putExtra("image", resultJSON.get("image").toString());
+                        intent.putExtra("description", resultJSON.get("description").toString());
+                        startActivity(intent);
+                    }
                 }
             }
             else {
@@ -188,23 +192,22 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
                 httpURLConnection.setReadTimeout(5000);    // 5 seconds
 
                 InputStream inputStream = httpURLConnection.getInputStream();
+                InputStream stream = httpURLConnection.getErrorStream();
+                if(stream == null){
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line;
-                String data="";
-                while((line = bufferedReader.readLine()) != null){
-                    data = data + line;
+                    String line;
+                    String data="";
+                    while((line = bufferedReader.readLine()) != null){
+                        data = data + line;
+                    }
+                    dataResult = data;
+                    /* Log.d("GetEventsTask= data=", data); */
                 }
-                dataResult = data;
-                /* Log.d("GetEventsTask= data=", data); */
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } /*catch (JSONException e) {
-                throw new RuntimeException(e);
-            }*/
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return dataResult;
         }
 
