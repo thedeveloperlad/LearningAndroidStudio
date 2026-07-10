@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.MediaController;
@@ -39,6 +41,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements ConnectionReceiver.ReceiverListener {
 
@@ -84,19 +88,48 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
                 if(!checkConnection()){
                     showNetworkInfo(checkConnection());
                 } else {
-                    String mlbHtmlLink = new GetEventsTask().execute(pathValue).get();
-                    JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
 
-                    if(resultJSON.length() == 0){
-                        Toast.makeText(MainActivity.this, "Invalid link, MLB returns null data...", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
-                        intent.putExtra("name", resultJSON.get("name").toString());
-                        intent.putExtra("link", resultJSON.get("link").toString());
-                        intent.putExtra("image", resultJSON.get("image").toString());
-                        intent.putExtra("description", resultJSON.get("description").toString());
-                        startActivity(intent);
-                    }
+                    // 1. Create the Executor and Handler
+                    ExecutorService executor = Executors.newSingleThreadExecutor();
+                    Handler handler = new Handler(Looper.getMainLooper());
+
+                    // [Equivalent to onPreExecute]
+                    // Do setup work here (e.g., show a loading spinner)
+
+                    executor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            // [Equivalent to doInBackground]
+                            // Run your heavy background tasks here (Network, Database, etc.)
+                            String mlbHtmlLink = downloadDataFromMLB(pathValue);
+
+                            JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
+
+                            // Send the result back to the main UI thread
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // [Equivalent to onPostExecute]
+                                    // Update your text views, hide spinners, or show data here
+                                    // myTextView.setText(result); [EXAMPLE]
+                                    if(resultJSON.length() == 0){
+                                        Toast.makeText(MainActivity.this, "Invalid link, MLB returns null data...", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+                                        try {
+                                            intent.putExtra("name", resultJSON.get("name").toString());
+                                            intent.putExtra("link", resultJSON.get("link").toString());
+                                            intent.putExtra("image", resultJSON.get("image").toString());
+                                            intent.putExtra("description", resultJSON.get("description").toString());
+                                            startActivity(intent);
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
             }
             else {
@@ -167,59 +200,39 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
         checkConnection();
     }
 
-    protected class GetEventsTask extends AsyncTask<String, Void, String> {
+    private String downloadDataFromNetwork() {
+        // Mock heavy operation
+        try { Thread.sleep(2000); } catch (InterruptedException e) {}
+        return "Data loaded!";
+    }
 
-        private final ProgressDialog dialog = new ProgressDialog(
-                MainActivity.this);
+    private String downloadDataFromMLB(String urlLink){
+        String dataResult = "";
+        try{
+            URL url = new URL(urlLink);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-        protected void onPreExecute(){
-            //super.onPreExecute();
-            // start loading icon
-            this.dialog.setMessage("Loading, Please Wait..");
-            this.dialog.setCancelable(false);
-            this.dialog.show();
-        }
-        @Override
-        protected String doInBackground(String... args) {
-            String urlDATA = args[0];
-            String dataResult = "";
-            try{
-                URL url = new URL(urlDATA);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            // Set timeouts
+            httpURLConnection.setConnectTimeout(5000); // 5 seconds
+            httpURLConnection.setReadTimeout(5000);    // 5 seconds
 
-                // Set timeouts
-                httpURLConnection.setConnectTimeout(5000); // 5 seconds
-                httpURLConnection.setReadTimeout(5000);    // 5 seconds
+            InputStream inputStream = httpURLConnection.getInputStream();
+            InputStream stream = httpURLConnection.getErrorStream();
+            if(stream == null){
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                InputStream stream = httpURLConnection.getErrorStream();
-                if(stream == null){
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-                    String line;
-                    String data="";
-                    while((line = bufferedReader.readLine()) != null){
-                        data = data + line;
-                    }
-                    dataResult = data;
-                    /* Log.d("GetEventsTask= data=", data); */
+                String line;
+                String data="";
+                while((line = bufferedReader.readLine()) != null){
+                    data = data + line;
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                dataResult = data;
+                /* Log.d("GetEventsTask= data=", data); */
             }
-            return dataResult;
-        }
 
-        @Override
-        protected void onPostExecute(String aVoid){
-            //super.onPostExecute(aVoid);
-            //processValue(aVoid);
-            if (this.dialog.isShowing()) {
-                this.dialog.dismiss();
-            }
-            Log.d("GetEventsTask", "TEST onPostExecute");
-            // Update UI
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return dataResult;
     }
 }
