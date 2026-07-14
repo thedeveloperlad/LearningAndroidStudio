@@ -1,10 +1,14 @@
 package com.project.hellowordkotlin
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +20,22 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    /*fun clickOnMe(view: View){
+        // val URLText = findViewById<View?>(R.id.ClickOnMeButton) as Button
+        Toast.makeText(applicationContext, "Hello World Button!!", Toast.LENGTH_SHORT).show()
+
+    }*/
+    fun clickOnMe(view: View) {
+        Toast.makeText(applicationContext, "Hello World Button!!", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onRegister(view: View) {
+        Toast.makeText(applicationContext, "Register Button!!", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onLogin(view: View) {
+        Toast.makeText(applicationContext, "Login Button!!", Toast.LENGTH_SHORT).show()
     }
 }
