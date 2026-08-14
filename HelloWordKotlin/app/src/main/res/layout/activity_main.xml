@@ -9,6 +9,12 @@
     android:gravity="center_vertical"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="#CCCCCC"
+        android:orientation="horizontal">
     <!-- Title Header -->
     <TextView
         android:layout_width="match_parent"
@@ -19,13 +25,24 @@
         android:layout_marginBottom="24dp"
         android:gravity="center_horizontal" />
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="#CCCCCC"
+        android:orientation="horizontal">
     <!-- Email Input -->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
+        android:id="@+id/emailId"
         android:layout_marginBottom="12dp" />
+    </LinearLayout>
 
     <!-- <TextView
         android:id="@+id/titleText"
@@ -48,6 +65,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="#CCCCCC"
         android:orientation="horizontal">
 
         <Button
@@ -65,6 +84,25 @@
             android:text="Login"
             android:onClick="onLogin"
             android:layout_marginLeft="8dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="#AAAAAA"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/emailTextID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center_horizontal"
+            android:text="-"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
