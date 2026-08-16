@@ -93,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
+            android:id="@+id/resultId"
             android:textSize="32sp"
             android:textColor="#FFFFFF"
             app:backgroundTint="#FFFFFF"
@@ -114,7 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="+"
-            android:onClick="onAdd"
+            android:id="@+id/addId"
+            android:onClick="onCalculatorOperation"
             android:layout_marginRight="12dp" />
 
         <Button
@@ -122,7 +124,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="-"
-            android:onClick="onSubtraction"
+            android:id="@+id/subsId"
+            android:onClick="onCalculatorOperation"
             android:layout_marginRight="12dp" />
 
     </LinearLayout>
@@ -136,8 +139,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onMultiplication"
+            android:onClick="onCalculatorOperation"
             android:text="x"
+            android:id="@+id/multiplicationId"
             android:layout_marginRight="12dp" />
 
         <Button
@@ -145,7 +149,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="/"
-            android:onClick="onDivision"
+            android:id="@+id/divisionId"
+            android:onClick="onCalculatorOperation"
             android:layout_marginRight="12dp" />
 
     </LinearLayout>
