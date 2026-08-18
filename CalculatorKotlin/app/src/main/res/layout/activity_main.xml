@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mainLayout"
+        android:layout_alignParentTop="true"
+        android:id="@+id/headerLayout">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +24,8 @@
     android:orientation="vertical"
     android:padding="32dp"
     android:gravity="center_vertical"
-    android:background="#262222"
+    android:background="#CFF2D3"
+    android:fitsSystemWindows="false"
     android:windowSoftInputMode="stateHidden|adjustResize"
     android:exported="true"
     tools:context=".MainActivity">
@@ -25,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
             android:textSize="32sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#2C312C"
             android:text="Basic Calculator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +65,7 @@
             android:text=""
             android:digits="0123456789."
             android:inputType="number"
-            android:textColor="#FFFFFF"
+            android:textColor="#0C1B0F"
             android:hint="value 1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +78,7 @@
             android:id="@+id/symbolId"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:textColor="#FFFFFF"
+            android:textColor="#0C1B0F"
             android:hint="operation"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
@@ -77,7 +94,7 @@
             android:layout_weight="1"
             android:digits="0123456789."
             android:inputType="number"
-            android:textColor="#FFFFFF"
+            android:textColor="#0C1B0F"
             android:hint="value 2"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,8 +116,8 @@
             android:layout_marginBottom="32dp"
             android:id="@+id/resultId"
             android:textSize="32sp"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#FFFFFF"
+            android:textColor="#0C1B0F"
+            app:backgroundTint="#0C1B0F"
             android:hint="Result operation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -182,5 +199,7 @@
 
     </LinearLayout>
 
-
-</LinearLayout>
+   </LinearLayout>
+    </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
