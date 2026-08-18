@@ -49,6 +49,7 @@
             android:digits="0123456789."
             android:inputType="number"
             android:textColor="#FFFFFF"
+            android:hint="value 1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +61,8 @@
             android:id="@+id/symbolId"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
+            android:textColor="#FFFFFF"
+            android:hint="operation"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +78,7 @@
             android:digits="0123456789."
             android:inputType="number"
             android:textColor="#FFFFFF"
+            android:hint="value 2"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +101,7 @@
             android:textSize="32sp"
             android:textColor="#FFFFFF"
             app:backgroundTint="#FFFFFF"
-            android:text="56544564565"
+            android:hint="Result operation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -172,8 +176,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClearScreen"
             android:text="(C)"
-            android:onClick="onClear"
             android:layout_marginRight="12dp" />
 
     </LinearLayout>

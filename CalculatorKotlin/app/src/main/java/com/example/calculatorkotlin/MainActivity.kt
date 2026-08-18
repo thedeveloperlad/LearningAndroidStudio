@@ -25,15 +25,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onCalculatorOperation(view: View){
-
+        val symbolValue = findViewById<EditText>(R.id.symbolId)
         if(view.id == R.id.addId){
             operations.setAddFlag(true);
+            symbolValue.setText("+")
         } else if (view.id == R.id.subsId) {
             operations.setSubtractionFlag(true);
+            symbolValue.setText("-")
         } else if (view.id == R.id.multiplicationId) {
             operations.setMultiplicationFlag(true);
+            symbolValue.setText("x")
         } else if (view.id == R.id.divisionId) {
             operations.setDivisionFlag(true);
+            symbolValue.setText("/")
         }
     }
 
@@ -63,11 +67,11 @@ class MainActivity : AppCompatActivity() {
             resultId.setText(addResult.toString())
         }
 
-        onClear();
+        // onClear();
 
     }
 
-    fun onClear() {
+    fun onClearScreen(view: View) {
         val value1 = findViewById<EditText>(R.id.value1)
         val value2 = findViewById<EditText>(R.id.value2)
         val symbol = findViewById<EditText>(R.id.symbolId)
