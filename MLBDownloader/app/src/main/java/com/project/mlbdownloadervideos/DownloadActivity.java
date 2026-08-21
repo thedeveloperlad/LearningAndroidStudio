@@ -77,11 +77,25 @@ public class DownloadActivity extends AppCompatActivity {
         }
     }
 
-    public void onCopyIcon(View view) {
+    public void onCopyDescription(View view) {
         //TextView nameTextView = findViewById(R.id.nameTextId);
         TextView descriptionTextView = findViewById(R.id.descriptionTextId);
         // Get the text from TextView
         // String nameTextToCopy = nameTextView.getText().toString();
+        String descriptionTextToCopy = descriptionTextView.getText().toString();
+        // Access the Clipboard service
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", descriptionTextToCopy);
+
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(clip);
+            // Notify user
+            Toast.makeText(DownloadActivity.this, "Text Copied!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onCopyVideoText(View view) {
+        TextView descriptionTextView = findViewById(R.id.nameTextId);
         String descriptionTextToCopy = descriptionTextView.getText().toString();
         // Access the Clipboard service
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);

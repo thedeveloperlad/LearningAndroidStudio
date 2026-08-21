@@ -96,12 +96,23 @@
 
             <Button
                 style="@style/Widget.Material3.Button.ElevatedButton"
-                android:id="@+id/copyTextButton"
-                android:layout_width="wrap_content"
+                android:id="@+id/copyVideoTextButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="Copy Video Title"
+                android:layout_weight="1"
+                android:src="@drawable/ic_content_copy"
+                android:onClick="onCopyVideoText" />
+
+            <Button
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:id="@+id/copyTextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Copy Description"
                 android:src="@drawable/ic_content_copy"
-                android:onClick="onCopyIcon" />
+                android:onClick="onCopyDescription" />
 
         </TableRow>
 
