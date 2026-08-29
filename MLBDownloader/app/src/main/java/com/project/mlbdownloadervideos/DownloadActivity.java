@@ -19,10 +19,27 @@ import android.content.ClipboardManager;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.media3.common.MediaItem;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.ui.PlayerView;
+
+import java.io.File;
 
 public class DownloadActivity extends AppCompatActivity {
 
     DownloadManager manager;
+    // FfmpegUtility ffmpegUtility = new FfmpegUtility();
+    private String name;
+    private String link;
+    private String image;
+    private String description;
+
+    private PlayerView playerView;
+    private ExoPlayer player;
+    private boolean playWhenReady = true;
+    private int currentItem = 0;
+    private long playbackPosition = 0L;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +47,7 @@ public class DownloadActivity extends AppCompatActivity {
         setContentView(R.layout.download_activity);
         setToolbar();
         printResultScreen();
+
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -39,7 +57,7 @@ public class DownloadActivity extends AppCompatActivity {
 
     void setToolbar(){
         // Find the toolbar by ID
-        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.my_toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
 
         // Set the toolbar to act as the ActionBar for this Activity
         setSupportActionBar(toolbar);
@@ -50,10 +68,11 @@ public class DownloadActivity extends AppCompatActivity {
 
     void printResultScreen(){
         Intent getIntent = getIntent();
-        String name = getIntent.getStringExtra("name");
-        String link = getIntent.getStringExtra("link");
-        String image = getIntent.getStringExtra("image");
-        String description = getIntent.getStringExtra("description");
+        setName(getIntent.getStringExtra("name"));
+        setLink(getIntent.getStringExtra("link"));
+        setImage(getIntent.getStringExtra("image"));
+
+        setDescription(getIntent.getStringExtra("description"));
 
         TextView nameView = (TextView) findViewById(R.id.nameTextId);
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
@@ -126,6 +145,21 @@ public class DownloadActivity extends AppCompatActivity {
         // long reference = manager.enqueue(request);
     }
 
+    public void DownloadMP4Button(View view){
+        // File appDownloadDir = this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File outputFile = new File(downloadDir, "converted_video.mp4");
+        String localOutputPath = outputFile.getAbsolutePath();
+        Log.d("DownloadMP4Button_(): link= ", link);
+        Log.d("DownloadMP4Button_(): path= ", localOutputPath);
+
+        if(!link.isEmpty()){
+            // ffmpegUtility.convertVideoToMp4(link, localOutputPath);
+        } else {
+            Toast.makeText(DownloadActivity.this, "URL path is empty!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     //pending to check this method.
     /*private static DownloadManager Request getRequest(Uri uri) {
         DownloadManager.Request request = new DownloadManager.Request(uri);
@@ -145,7 +179,10 @@ public class DownloadActivity extends AppCompatActivity {
     }
 
     void openVideo(String videoLink){
-            Uri uri = Uri.parse(videoLink);
+        playerView = findViewById(R.id.videoId);
+        initializePlayer(videoLink);
+
+           /*  Uri uri = Uri.parse(videoLink);
             VideoView videoView = findViewById(R.id.videoId);
             //Create object for media Controller
             MediaController mediaController = new MediaController(this);
@@ -156,20 +193,95 @@ public class DownloadActivity extends AppCompatActivity {
             //set Video URL
             videoView.setVideoURI(uri);
             videoView.stopPlayback();
-            videoView.setZOrderOnTop(true);
+            videoView.setZOrderOnTop(true); */
     }
 
+    private void initializePlayer(String videoUrl) {
+        player = new ExoPlayer.Builder(this).build();
+        playerView.setPlayer(player);
+        MediaItem mediaItem = MediaItem.fromUri(videoUrl);
+
+        player.setMediaItem(mediaItem);
+        player.setPlayWhenReady(playWhenReady);
+        player.seekTo(currentItem, playbackPosition);
+
+        player.prepare();
+    }
+
+    private void releasePlayer() {
+        if (player != null) {
+            playbackPosition = player.getCurrentPosition();
+            currentItem = player.getCurrentMediaItemIndex();
+            playWhenReady = player.getPlayWhenReady();
+
+            // Critical step to avoid resource leaks and background audio hanging
+            player.release();
+            player = null;
+        }
+    }
+
+    // Handle OS fragmentation and API 24+ lifecycle triggers properly
     @Override
-    protected void onPause() {
-        super.onPause();
-        VideoView videoView = findViewById(R.id.videoId);
-        videoView.pause();
+    protected void onStart() {
+        super.onStart();
+        if (android.os.Build.VERSION.SDK_INT > 23) {
+            initializePlayer(getLink());
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        VideoView videoView = findViewById(R.id.videoId);
-        videoView.start();
+        if (android.os.Build.VERSION.SDK_INT <= 23 || player == null) {
+            initializePlayer(getLink());
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (android.os.Build.VERSION.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (android.os.Build.VERSION.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

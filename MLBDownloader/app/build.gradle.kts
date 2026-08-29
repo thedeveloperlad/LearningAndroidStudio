@@ -42,4 +42,12 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.google.android.material:material:1.12.0")
     implementation ("org.jsoup:jsoup:1.15.3")
+
+    // Core ExoPlayer functionality
+    implementation("androidx.media3:media3-exoplayer:1.4.1")
+    // UI components for Media3 (PlayerView)
+    implementation("androidx.media3:media3-ui:1.4.1")
+    // DASH streaming support if needed
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
+
 }
