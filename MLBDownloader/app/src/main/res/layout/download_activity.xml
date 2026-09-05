@@ -5,6 +5,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ProgressBar
+        android:id="@+id/video_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone" />
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -157,7 +166,7 @@
             android:id="@+id/DownloadMP4Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Download MP4 Video"
+            android:text="Convert and Download to H264/MP4 Video"
             android:layout_weight="1"
             android:src="@drawable/ic_content_copy"
             android:onClick="DownloadMP4Button" />

@@ -4,6 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import androidx.annotation.OptIn;
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.MimeTypes;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.transformer.EditedMediaItem;
+import androidx.media3.transformer.Transformer;
+
 public class VideoUtility {
 
     /*
@@ -38,5 +45,22 @@ public class VideoUtility {
             url = url.substring(0, url.indexOf("#"));
         }
         return MimeTypeMap.getFileExtensionFromUrl(url);
+    }
+
+    @OptIn(markerClass = UnstableApi.class)
+    public static void videoEncoderH264(Context context, String inputPath, String outputPath){
+        Uri sourceUri = Uri.parse(inputPath);
+        MediaItem mediaItem = MediaItem.fromUri(sourceUri);
+
+        // Request H.264/AVC by setting the videoMimeType
+        EditedMediaItem editedMediaItem = new EditedMediaItem.Builder(mediaItem)
+                .setFlattenForSlowMotion(true)
+                .build();
+
+        Transformer transformer = new Transformer.Builder(context)
+                .setVideoMimeType(MimeTypes.VIDEO_H264)
+                .build();
+
+        transformer.start(editedMediaItem, outputPath);
     }
 }

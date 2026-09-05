@@ -21,10 +21,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.media3.common.MediaItem;
+import androidx.media3.common.MimeTypes;
 import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.ui.PlayerView;
+import androidx.media3.transformer.EditedMediaItem;
 
 import java.io.File;
+
+import javax.xml.transform.Transformer;
 
 public class DownloadActivity extends AppCompatActivity {
 
@@ -154,7 +158,8 @@ public class DownloadActivity extends AppCompatActivity {
         Log.d("DownloadMP4Button_(): path= ", localOutputPath);
 
         if(!link.isEmpty()){
-            // ffmpegUtility.convertVideoToMp4(link, localOutputPath);
+            VideoUtility.videoEncoderH264(this, link, localOutputPath);
+            
         } else {
             Toast.makeText(DownloadActivity.this, "URL path is empty!", Toast.LENGTH_SHORT).show();
         }
