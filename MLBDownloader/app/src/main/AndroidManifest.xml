@@ -30,6 +30,10 @@
         <activity android:name=".DownloadActivity" android:exported="true"
             android:parentActivityName=".MainActivity">
         </activity>
+
+        <activity android:name=".FileInfoActivity" android:exported="true"
+            android:parentActivityName=".DownloadActivity">
+        </activity>
     </application>
 
 </manifest>

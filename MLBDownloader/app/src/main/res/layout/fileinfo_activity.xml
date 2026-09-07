@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#041E42"
+            android:color="#041E42"
+            android:elevation="4dp"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/nameVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:fontStyle="italic"
+            android:textStyle="bold|italic"
+            android:gravity="center"
+            android:text="Name: "
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/nameInfoVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:fontStyle="italic"
+            android:textStyle="bold|italic"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+    </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/descriptionVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text="Description: "
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/descriptionInfoVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/uploadDateVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text="Upload Date: "
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/uploadDateInfoVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/durationVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text="Duration: "
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nameInfoVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/thumbnailUrlVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text="thumbnail Url: "
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/thumbnailUrlInfoVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
+                android:fontStyle="italic"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
