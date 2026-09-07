@@ -189,7 +189,7 @@ public class DownloadActivity extends AppCompatActivity {
     }*/
 
     public void fileInfoScreen(View view){
-        Intent intent = new Intent(DownloadActivity.this, MainActivity.class);
+        Intent intent = new Intent(DownloadActivity.this, FileInfoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
