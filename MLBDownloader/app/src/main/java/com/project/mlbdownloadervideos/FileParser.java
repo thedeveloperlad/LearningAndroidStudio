@@ -6,6 +6,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,11 +40,16 @@ public class FileParser {
             String ogVideo = getMetaContentByProperty(doc, "og:video");
             String ogImage = getMetaContentByProperty(doc, "og:image");
             String ogDescription = getMetaContentByProperty(doc, "og:description");
+            String mlbJsonRaw = getMetaContentByScriptType(doc, "application/ld+json");
 
+            Log.d("MLB JSON= ", mlbJsonRaw);
+
+            JSONObject mlbJsonRawObject = new JSONObject(mlbJsonRaw);
             jsonObject.put("name", ogTitle);
             jsonObject.put("link", ogVideo);
             jsonObject.put("image", ogImage);
             jsonObject.put("description", ogDescription);
+            jsonObject.put("mlbJsonRaw", mlbJsonRawObject);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,6 +85,22 @@ public class FileParser {
             return metaTag.attr("content");
         }
         return null;
+    }
+
+    /*
+
+        <!-- Structured Data Schema -->
+        <script type="application/ld+json">
+
+        */
+    public static String getMetaContentByScriptType(Document document, String property) {
+        // Use a CSS selector to find the specific meta tag
+        Element scriptElement = document.select("script[type='" + property + "']").first();
+
+        if(scriptElement != null){
+            return scriptElement.data().trim();
+        }
+        return "";
     }
 
     void startDownload(String url) {

@@ -27,7 +27,16 @@
     android:color="#041E42"
     android:elevation="4dp"/>
 
-    <TableRow
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/videoId"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
@@ -43,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </TableRow>
+    </TableRow> -->
 
         <TableRow
             android:layout_width="match_parent"
@@ -75,20 +84,21 @@
 
          <TableRow
              android:layout_width="match_parent"
-             android:layout_height="57dp"
+             android:layout_height="58dp"
              android:background="@drawable/border"
              android:gravity="center"
-             android:padding="10dp">
+             android:padding="20dp">
 
 
              <TextView
                  android:id="@+id/descriptionTextId"
                  android:layout_width="355dp"
-                 android:layout_height="wrap_content"
-                 android:ellipsize="marquee"
-                 android:lines="2"
-                 android:padding="10dp"
-                 android:singleLine="true"
+                 android:layout_height="80dp"
+                 android:ellipsize="none"
+                 android:lines="10"
+                 android:padding="5dp"
+                 android:scrollbars="vertical"
+                 android:singleLine="false"
                  android:text="Description Text" />
 
             <!-- <ImageView
@@ -172,7 +182,24 @@
             android:onClick="DownloadMP4Button" />
 
         </TableRow>
-    <TableRow
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <Button
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:id="@+id/fileInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File Info (i)"
+                android:onClick="fileInfoScreen" />
+        </TableRow>
+
+        <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"

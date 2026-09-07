@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +27,10 @@ import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.ui.PlayerView;
 import androidx.media3.transformer.EditedMediaItem;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.Objects;
 
 import javax.xml.transform.Transformer;
 
@@ -38,6 +42,8 @@ public class DownloadActivity extends AppCompatActivity {
     private String link;
     private String image;
     private String description;
+
+    private JSONObject mlbRawJson;
 
     private PlayerView playerView;
     private ExoPlayer player;
@@ -68,6 +74,9 @@ public class DownloadActivity extends AppCompatActivity {
 
         // Optional: Customize title or navigation icon
         getSupportActionBar().setTitle("Download Page");
+
+        TextView descriptionTextView = findViewById(R.id.descriptionTextId);
+        descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     void printResultScreen(){
@@ -75,8 +84,10 @@ public class DownloadActivity extends AppCompatActivity {
         setName(getIntent.getStringExtra("name"));
         setLink(getIntent.getStringExtra("link"));
         setImage(getIntent.getStringExtra("image"));
-
         setDescription(getIntent.getStringExtra("description"));
+        // setMlbRawJson(getIntent.getStringExtra("mlbJsonRaw"));
+
+        // Log.d("data sample= ", Objects.requireNonNull(getIntent.getStringExtra("mlbJsonRaw")));
 
         TextView nameView = (TextView) findViewById(R.id.nameTextId);
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
@@ -176,6 +187,12 @@ public class DownloadActivity extends AppCompatActivity {
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video.mp4");
         return request;
     }*/
+
+    public void fileInfoScreen(View view){
+        Intent intent = new Intent(DownloadActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
 
     public void BackHomeButton(View view){
         Intent intent = new Intent(DownloadActivity.this, MainActivity.class);
@@ -288,5 +305,13 @@ public class DownloadActivity extends AppCompatActivity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public JSONObject getMlbRawJson() {
+        return mlbRawJson;
+    }
+
+    public void setMlbRawJson(JSONObject mlbRawJson) {
+        this.mlbRawJson = mlbRawJson;
     }
 }
