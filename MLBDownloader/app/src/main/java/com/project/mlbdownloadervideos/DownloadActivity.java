@@ -9,30 +9,22 @@ import android.os.Environment;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.media3.common.MediaItem;
-import androidx.media3.common.MimeTypes;
 import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.ui.PlayerView;
-import androidx.media3.transformer.EditedMediaItem;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.Objects;
-
-import javax.xml.transform.Transformer;
 
 public class DownloadActivity extends AppCompatActivity {
 
@@ -43,7 +35,7 @@ public class DownloadActivity extends AppCompatActivity {
     private String image;
     private String description;
 
-    private JSONObject mlbRawJson;
+    private String mlbRawJson;
 
     private PlayerView playerView;
     private ExoPlayer player;
@@ -85,10 +77,10 @@ public class DownloadActivity extends AppCompatActivity {
         setLink(getIntent.getStringExtra("link"));
         setImage(getIntent.getStringExtra("image"));
         setDescription(getIntent.getStringExtra("description"));
-        // setMlbRawJson(getIntent.getStringExtra("mlbJsonRaw"));
+        setMlbRawJson(getIntent.getStringExtra("mlbJson"));
 
-        // Log.d("data sample= ", Objects.requireNonNull(getIntent.getStringExtra("mlbJsonRaw")));
-
+        // Log.d("printResultScreen().getMlbRawJson= ", getMlbRawJson());
+        Log.d("printResultScreen().execute", "mlbJsonRaw data: " + getIntent.getStringExtra("mlbJson"));
         TextView nameView = (TextView) findViewById(R.id.nameTextId);
         TextView linkView = (TextView) findViewById(R.id.linkTextId);
         TextView descriptionView = (TextView) findViewById(R.id.descriptionTextId);
@@ -191,6 +183,17 @@ public class DownloadActivity extends AppCompatActivity {
     public void fileInfoScreen(View view){
         Intent intent = new Intent(DownloadActivity.this, FileInfoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        String rawJson = getMlbRawJson();
+
+        // 2. Prevent a Log.d crash if the string is null
+        if (rawJson == null) {
+            Log.d("fileInfoScreen", "getMlbRawJson() returned NULL!");
+            rawJson = ""; // Fallback to an empty string to prevent downstream crashes
+        } else {
+            Log.d("fileInfoScreen", "getMlbRawJson data: " + rawJson);
+        }
+
+        intent.putExtra("mlbJson", rawJson);
         startActivity(intent);
     }
 
@@ -307,11 +310,11 @@ public class DownloadActivity extends AppCompatActivity {
         this.description = description;
     }
 
-    public JSONObject getMlbRawJson() {
+    public String getMlbRawJson() {
         return mlbRawJson;
     }
 
-    public void setMlbRawJson(JSONObject mlbRawJson) {
-        this.mlbRawJson = mlbRawJson;
+    public void setMlbRawJson(String mlbRaw) {
+        mlbRawJson = mlbRaw;
     }
 }

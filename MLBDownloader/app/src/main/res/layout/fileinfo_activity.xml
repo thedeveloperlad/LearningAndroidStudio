@@ -121,7 +121,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/nameInfoVideo"
+                android:id="@+id/durationInfoVideo"
                 android:layout_width="wrap_content"
                 android:layout_height="47dp"
                 android:fontStyle="italic"

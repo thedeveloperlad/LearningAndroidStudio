@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
                                             intent.putExtra("link", resultJSON.get("link").toString());
                                             intent.putExtra("image", resultJSON.get("image").toString());
                                             intent.putExtra("description", resultJSON.get("description").toString());
+                                            Log.d("DownloaderButton().execute", "mlbJsonRaw data: " + resultJSON.get("mlbJsonRaw").toString());
                                             intent.putExtra("mlbJson", resultJSON.get("mlbJsonRaw").toString());
                                             startActivity(intent);
                                         } catch (JSONException e) {
