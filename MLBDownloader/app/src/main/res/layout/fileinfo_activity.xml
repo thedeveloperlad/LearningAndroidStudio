@@ -1,166 +1,188 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"> <!-- Light gray background -->
 
-    <TableLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/border">
+        android:layout_height="?attr/actionBarSize"
+        android:background="#041E42"
+        android:elevation="4dp" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#041E42"
-            android:color="#041E42"
-            android:elevation="4dp"/>
-
-    <TableRow
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/nameVideo"
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:fontStyle="italic"
-            android:textStyle="bold|italic"
-            android:gravity="center"
-            android:text="Name: "
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/nameInfoVideo"
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:fontStyle="italic"
-            android:textStyle="bold|italic"
-            android:gravity="center"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-
-    </TableRow>
-
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/descriptionVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text="Description: "
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+            <!-- ==================== ROW 1: NAME ==================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:background="#FFFFFF">
 
-            <TextView
-                android:id="@+id/descriptionInfoVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                <!-- Left Column (Label) -->
+                <TextView
+                    android:id="@+id/nameVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Name"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
 
-        </TableRow>
+                <!-- Right Column (Value) -->
+                <TextView
+                    android:id="@+id/nameInfoVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="Sample Video Name"
+                    android:textColor="#0000FF"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            <!-- Divider Line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0" />
 
-            <TextView
-                android:id="@+id/uploadDateVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text="Upload Date: "
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+            <!-- ==================== ROW 2: DESCRIPTION ==================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:background="#FFFFFF">
 
-            <TextView
-                android:id="@+id/uploadDateInfoVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/descriptionVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Description"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/descriptionInfoVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="This is a description of the video file."
+                    android:textColor="#0000FF"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0" />
 
-            <TextView
-                android:id="@+id/durationVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text="Duration: "
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+            <!-- ==================== ROW 3: UPLOAD DATE ==================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:background="#FFFFFF">
 
-            <TextView
-                android:id="@+id/durationInfoVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/uploadDateVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Upload Date"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/uploadDateInfoVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="2026-09-09"
+                    android:textColor="#0000FF"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0" />
 
-            <TextView
-                android:id="@+id/thumbnailUrlVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text="thumbnail Url: "
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+            <!-- ==================== ROW 4: DURATION ==================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:background="#FFFFFF">
 
-            <TextView
-                android:id="@+id/thumbnailUrlInfoVideo"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/durationVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Duration"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
 
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:id="@+id/durationInfoVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="10:24"
+                    android:textColor="#0000FF"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0" />
+
+            <!-- ==================== ROW 5: THUMBNAIL URL ==================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:background="#FFFFFF">
+
+                <TextView
+                    android:id="@+id/thumbnailUrlVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Thumbnail URL"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/thumbnailUrlInfoVideo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="https://example.com"
+                    android:textColor="#0000FF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

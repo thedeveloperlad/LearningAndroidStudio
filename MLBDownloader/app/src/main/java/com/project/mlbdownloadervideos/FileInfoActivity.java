@@ -2,11 +2,13 @@ package com.project.mlbdownloadervideos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ public class FileInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.fileinfo_activity);
-        //setToolbar();
+        setToolbar();
         showFileInfoOnScreen();
 
 
@@ -28,6 +30,15 @@ public class FileInfoActivity extends AppCompatActivity {
         });*/
     }
 
+    void setToolbar(){
+        Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Media Info (i)");
+
+        TextView descriptionTextView = findViewById(R.id.descriptionTextId);
+        descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
+    }
+
     private void showFileInfoOnScreen() {
         Intent getIntent = getIntent();
 
@@ -36,8 +47,6 @@ public class FileInfoActivity extends AppCompatActivity {
         if(!mlbRawString.isEmpty()) {
             try {
                 JSONObject mlbRaw = new JSONObject(mlbRawString);
-
-                // Log.d("data sample= ", Objects.requireNonNull(getIntent.getStringExtra("mlbJsonRaw")));
 
                 TextView nameInfoVideoView = (TextView) findViewById(R.id.nameInfoVideo);
                 TextView descriptionInfoVideoView = (TextView) findViewById(R.id.descriptionInfoVideo);
