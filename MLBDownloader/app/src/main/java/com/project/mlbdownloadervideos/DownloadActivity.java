@@ -185,10 +185,9 @@ public class DownloadActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         String rawJson = getMlbRawJson();
 
-        // 2. Prevent a Log.d crash if the string is null
         if (rawJson == null) {
             Log.d("fileInfoScreen", "getMlbRawJson() returned NULL!");
-            rawJson = ""; // Fallback to an empty string to prevent downstream crashes
+            rawJson = "";
         } else {
             Log.d("fileInfoScreen", "getMlbRawJson data: " + rawJson);
         }
@@ -222,15 +221,18 @@ public class DownloadActivity extends AppCompatActivity {
     }
 
     private void initializePlayer(String videoUrl) {
-        player = new ExoPlayer.Builder(this).build();
-        playerView.setPlayer(player);
-        MediaItem mediaItem = MediaItem.fromUri(videoUrl);
+        if(player == null)
+        {
+            player = new ExoPlayer.Builder(this).build();
+            playerView.setPlayer(player);
+            MediaItem mediaItem = MediaItem.fromUri(videoUrl);
 
-        player.setMediaItem(mediaItem);
-        player.setPlayWhenReady(playWhenReady);
-        player.seekTo(currentItem, playbackPosition);
+            player.setMediaItem(mediaItem);
+            player.setPlayWhenReady(playWhenReady);
+            player.seekTo(currentItem, playbackPosition);
 
-        player.prepare();
+            player.prepare();
+        }
     }
 
     private void releasePlayer() {
