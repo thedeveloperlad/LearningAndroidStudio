@@ -31,12 +31,12 @@ public class FileInfoActivity extends AppCompatActivity {
     }
 
     void setToolbar(){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        /*Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Media Info (i)");
 
         TextView descriptionTextView = findViewById(R.id.descriptionTextId);
-        descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
+        descriptionTextView.setMovementMethod(new ScrollingMovementMethod());*/
     }
 
     private void showFileInfoOnScreen() {
