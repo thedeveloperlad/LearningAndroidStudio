@@ -181,7 +181,37 @@
                     android:text="https://example.com"
                     android:textColor="#0000FF"
                     android:textSize="16sp" />
+
             </LinearLayout>
+
+        <!-- ==================== ROW 5: THUMBNAIL URL ==================== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:id="@+id/thumbnailUrlImageVideo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="Image Sample"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/ImageSample"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="https://example.com"
+                android:textColor="#0000FF"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

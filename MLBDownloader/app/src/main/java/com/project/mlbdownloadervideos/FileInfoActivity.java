@@ -1,8 +1,15 @@
 package com.project.mlbdownloadervideos;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.StrictMode;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,12 +20,25 @@ import androidx.appcompat.widget.Toolbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class FileInfoActivity extends AppCompatActivity {
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.fileinfo_activity);
+
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setToolbar();
         showFileInfoOnScreen();
 
@@ -53,6 +73,7 @@ public class FileInfoActivity extends AppCompatActivity {
                 TextView uploadDateInfoVideoView = (TextView) findViewById(R.id.uploadDateInfoVideo);
                 TextView durationInfoVideoView = (TextView) findViewById(R.id.durationInfoVideo);
                 TextView thumbnailUrlInfoVideoView = (TextView) findViewById(R.id.thumbnailUrlInfoVideo);
+                // ImageView imageURLSampleView = (ImageView) findViewById(R.id.ImageSample);
 
                 nameInfoVideoView.setTextIsSelectable(false);
 
@@ -61,6 +82,8 @@ public class FileInfoActivity extends AppCompatActivity {
                 uploadDateInfoVideoView.setText(mlbRaw.get("uploadDate").toString());
                 durationInfoVideoView.setText(mlbRaw.get("duration").toString());
                 thumbnailUrlInfoVideoView.setText(mlbRaw.get("thumbnailUrl").toString());
+                setBitmapFromURL(mlbRaw.get("thumbnailUrl").toString());
+                // imageURLSampleView.setImageBitmap(getBitmap(mlbRaw.get("thumbnailUrl").toString()));
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -68,6 +91,51 @@ public class FileInfoActivity extends AppCompatActivity {
         } else {
             Toast.makeText(FileInfoActivity.this, "Invalid Data...", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static Bitmap getBitmap(String source){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        final Bitmap[] myBitmap = new Bitmap[1];
+        // [Equivalent to onPreExecute]
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // [Equivalent to doInBackground]
+                // Run your heavy background tasks here (Network, Database, etc.)
+
+
+                // Send the result back to the main UI thread
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // [Equivalent to onPostExecute]
+                        // Update your text views, hide spinners, or show data here
+                        // myTextView.setText(result); [EXAMPLE]
+                    }
+                });
+            }
+        });
+        return myBitmap[0];
+    }
+    
+    public void setBitmapFromURL(String src) {
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        ImageView imageURLSampleView = (ImageView) findViewById(R.id.ImageSample);
+
+        executor.execute(() -> {
+            try {
+                java.io.InputStream in = new java.net.URL(src).openStream();
+                android.graphics.Bitmap bitmap = android.graphics.BitmapFactory.decodeStream(in);
+
+                // Push the bitmap to the UI thread
+                handler.post(() -> imageURLSampleView.setImageBitmap(bitmap));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
 
