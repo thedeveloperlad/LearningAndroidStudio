@@ -118,7 +118,7 @@ public class FileInfoActivity extends AppCompatActivity {
         });
         return myBitmap[0];
     }
-    
+
     public void setBitmapFromURL(String src) {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();

@@ -31,12 +31,11 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="47dp"
-                android:fontStyle="italic"
-                android:textStyle="bold|italic"
+                android:fontFamily="@font/jersey_m54"
                 android:gravity="center"
-                android:text="Download MLB/MiLB videos"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:text="Download MLB and MiLB videos"
+                android:textColor="#1E2B78"
+                android:textSize="28sp" />
 
         </TableRow>
 
@@ -46,25 +45,25 @@
             android:gravity="center">
 
             <!-- Download MLB/MiLB videos -->
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/VideoLinkText"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
-                android:layout_marginTop="12dp"
                 android:hint="Enter MLB/MiLB video link"
-                android:lines="1"
-                android:maxLines="1"
-                android:scrollHorizontally="true"
-                android:minHeight="30dp"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <!--this is the actual edit text which takes the input-->
+                <!-- This is the actual edit text which takes the input -->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="255dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:inputType="textUri" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
