@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="relative_layout">Relative Layout Activity</string>
+    <string name="linear_layout">Linear Layout Activity</string>
+    <string name="grid_layout">Grid Layout Activity</string>
+    <string name="to">To</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+    <string name="click_me">CLICK ON ME</string>
+    <string name="new_button_text">BELOW</string>
+    <string name="to_hint">Hint</string>
+</resources>
