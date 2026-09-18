@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DrinkActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DrinkActivity extends AppCompatActivity {
     public static final String EXTRA_DRINKNO = "drinkNo";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
