@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FileReader</string>
+    <string name="list_channels">Load channels</string>
+</resources>
