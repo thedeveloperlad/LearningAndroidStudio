@@ -30,7 +30,6 @@ public class BasicOperations {
             return 0.0; //no valid number
         } else {
             double result = ((double) obtained / total) * 100;
-            Log.d("calculatePercentage(): ", String.valueOf(result));
             return ((double) obtained / total) * 100;
         }
     }
