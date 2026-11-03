@@ -23,7 +23,7 @@ public class TopLevelActivity extends AppCompatActivity {
 
         //Create an OnItemClickListener
         AdapterView.OnItemClickListener itemClickListener =
-                new AdapterView.OnItemClickListener(){
+                new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> listView,
                                             View v,
                                             int position,
@@ -35,15 +35,8 @@ public class TopLevelActivity extends AppCompatActivity {
                         }
                     }
                 };
-
         //Add the listener to the list view
         ListView listView = (ListView) findViewById(R.id.list_options);
         listView.setOnItemClickListener(itemClickListener);
-
-        /* ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
     }
 }
