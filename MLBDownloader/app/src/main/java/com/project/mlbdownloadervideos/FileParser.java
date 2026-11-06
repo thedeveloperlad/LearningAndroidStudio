@@ -13,11 +13,17 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileParser {
 
     String VideoTitle;
     String MLBLink;
+
+    public static String findKey = "window.webMediaPerformanceConfig = {};    window.INIT_DATA =";
     FileParser(){}
     FileParser(String videoTitle, String mlbLink){
         this.VideoTitle = videoTitle;
@@ -50,6 +56,33 @@ public class FileParser {
             jsonObject.put("image", ogImage);
             jsonObject.put("description", ogDescription);
             jsonObject.put("mlbJsonRaw", mlbJsonRawObject);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+    public JSONObject milbParserFile(String milbJsonRaw){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            // milbJsonRaw = cleanJsonRaw(milbJsonRaw);
+            JSONObject milbJsonRawObject = new JSONObject(cleanJsonRaw(milbJsonRaw)).getJSONObject("clip").getJSONObject("data");
+            String ogTitle = milbJsonRawObject.getString("title");
+
+            System.out.println(milbJsonRawObject.getString("title"));
+            System.out.println(milbJsonRawObject.getString("description"));
+            System.out.println(milbJsonRawObject.getString("type"));
+            System.out.println(milbJsonRawObject.getString("url"));
+
+           
+            String ogDescription = milbJsonRawObject.getString("description");
+            String ogVideo = milbJsonRawObject.getString("url");
+            String ogImage = "";
+            jsonObject.put("name", ogTitle);
+            jsonObject.put("link", ogVideo);
+            jsonObject.put("image", ogImage);
+            jsonObject.put("description", ogDescription);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -119,6 +152,53 @@ public class FileParser {
         if (manager != null) {
             manager.enqueue(request); // Starts the download
         }
+    }
+
+    public static String[] getContentByScript(Document document) {
+        // Use a CSS selector to find the specific meta tag
+        List<String> scriptContents = new ArrayList<>();
+        Elements scripts = document.select("script");
+
+        for (Element script : scripts) {
+            if (!script.hasAttr("src")) {
+                scriptContents.add(script.data());
+            }
+        }
+        return scriptContents.toArray(new String[0]);
+    }
+
+    public String cleanJsonRaw(String inputJsonRaw){
+        String cleanJson = inputJsonRaw.trim();
+        if (cleanJson.startsWith("\"") && cleanJson.endsWith("\"")) {
+            cleanJson = cleanJson.substring(1, cleanJson.length() - 1);
+        }
+
+        // Replace the escaped quotes (\") with standard quotes (")
+        cleanJson = cleanJson.replace("\\\"", "\"");
+        return cleanJson;
+    }
+
+    public String removeInitData(String milbJsonInitRaw){
+        String milbJsonRaw = "";
+        milbJsonRaw = milbJsonInitRaw.replace(findKey, "").trim();
+        return milbJsonRaw;
+    }
+
+    // Extract JSON String raw
+    public String getJSONString(String [] milbScriptRaw){
+        String milbJsonRaw = "";
+        for(int row = 0; row < milbScriptRaw.length; row++){
+
+            if(milbScriptRaw[row].contains(findKey)){
+                milbJsonRaw  = milbScriptRaw[row];
+                break;
+            }
+        }
+        return milbJsonRaw;
+    }
+
+    public Document getHtmlDocument(String htmlString) {
+        return Jsoup.parse(htmlString);
     }
 
     //setters

@@ -18,11 +18,11 @@ import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
 
     void setToolbar(){
         // Find the toolbar by ID
-        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.my_toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
 
         // Set the toolbar to act as the ActionBar for this Activity
         setSupportActionBar(toolbar);
@@ -102,27 +102,39 @@ public class MainActivity extends AppCompatActivity implements ConnectionReceive
                             // [Equivalent to doInBackground]
                             // Run your heavy background tasks here (Network, Database, etc.)
                             String mlbHtmlLink = downloadDataFromMLB(pathValue);
-
-                            JSONObject resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
+                            JSONObject resultJSON = new JSONObject();
+                            if(pathValue.contains("mlb")){
+                                resultJSON = fileParser.mlbParserFile(mlbHtmlLink);
+                            } else if(pathValue.contains("milb")){
+                                String [] milbScriptRaw = fileParser.getContentByScript(fileParser.getHtmlDocument(mlbHtmlLink));
+                                String milbJsonRaw = fileParser.getJSONString(milbScriptRaw);
+                                milbJsonRaw = fileParser.removeInitData(milbJsonRaw);
+                                resultJSON = fileParser.milbParserFile(milbJsonRaw);
+                            } else{
+                                // TODO: return a toast validation.
+                            }
 
                             // Send the result back to the main UI thread
+                            JSONObject finalResultJSON = resultJSON;
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     // [Equivalent to onPostExecute]
                                     // Update your text views, hide spinners, or show data here
                                     // myTextView.setText(result); [EXAMPLE]
-                                    if(resultJSON.length() == 0){
+                                    if(finalResultJSON.length() == 0){
                                         Toast.makeText(MainActivity.this, "Invalid link, MLB returns null data...", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
                                         try {
-                                            intent.putExtra("name", resultJSON.get("name").toString());
-                                            intent.putExtra("link", resultJSON.get("link").toString());
-                                            intent.putExtra("image", resultJSON.get("image").toString());
-                                            intent.putExtra("description", resultJSON.get("description").toString());
-                                            Log.d("DownloaderButton().execute", "mlbJsonRaw data: " + resultJSON.get("mlbJsonRaw").toString());
-                                            intent.putExtra("mlbJson", resultJSON.get("mlbJsonRaw").toString());
+                                            intent.putExtra("name", finalResultJSON.get("name").toString());
+                                            intent.putExtra("link", finalResultJSON.get("link").toString());
+                                            intent.putExtra("image", finalResultJSON.get("image").toString());
+                                            intent.putExtra("description", finalResultJSON.get("description").toString());
+                                            if(!pathValue.contains("milb")){
+                                                Log.d("DownloaderButton().execute", "mlbJsonRaw data: " + finalResultJSON.get("mlbJsonRaw").toString());
+                                                intent.putExtra("mlbJson", finalResultJSON.get("mlbJsonRaw").toString());
+                                            }
                                             startActivity(intent);
                                         } catch (JSONException e) {
                                             throw new RuntimeException(e);
