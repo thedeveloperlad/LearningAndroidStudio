@@ -10,10 +10,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.view.View;
+import android.widget.SearchView;
 
 public class TopLevelActivity extends AppCompatActivity {
+
+    SearchView searchView;
+    ArrayAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,5 +44,24 @@ public class TopLevelActivity extends AppCompatActivity {
         //Add the listener to the list view
         ListView listView = (ListView) findViewById(R.id.list_options);
         listView.setOnItemClickListener(itemClickListener);
+
+        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, Drink.drinks);
+        listView.setAdapter(adapter);
+
+        searchView = findViewById(R.id.searchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 }
