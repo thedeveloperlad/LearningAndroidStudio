@@ -15,6 +15,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/titleId"
         android:hint="@string/title" />
 
     <!-- <EditText
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:hint="@string/description"
+        android:id="@+id/descriptionId"
         android:lines="8"
         android:maxLines="10"
         android:minLines="6"
@@ -35,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:onClick="onSave"
         android:text="@string/save" />
 
     <SearchView
