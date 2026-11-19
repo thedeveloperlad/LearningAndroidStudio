@@ -11,6 +11,10 @@ class Note {
         this.id = id
     }
 
+    override fun toString(): String {
+        return title // Or: "$title - $description"
+    }
+
     fun turnOn() {
         println("Smart device is turned on.")
     }
